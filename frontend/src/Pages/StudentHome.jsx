@@ -25,7 +25,7 @@ function StudentHome() {
             <p>Course load, subject difficulty, and academic pressure.</p>
           </div>
 
-          <div className="module-card">
+          <div className="module-card" onClick={() => navigate("/student/timetable")}>
             <h3>🗓 Timetable & Workload</h3>
             <p>Lab hours, theory balance, and timetable gaps.</p>
           </div>
@@ -35,8 +35,8 @@ function StudentHome() {
             <p>Internship status, placement stress, and expectations.</p>
           </div>
 
-          <div className="module-card">
-            <h3>📚 Curriculum Relevance</h3>
+          <div className="module-card" onClick={() => navigate("/student/course-wise-review")}>
+            <h3>📚 CourseWise Review</h3>
             <p>Industry relevance of subjects and skill alignment.</p>
           </div>
 

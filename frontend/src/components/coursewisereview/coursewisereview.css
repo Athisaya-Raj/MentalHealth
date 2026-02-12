@@ -1,0 +1,565 @@
+/* ===========================
+   COURSE WISE REVIEW STYLES
+   Blue & White Academic Theme
+   =========================== */
+
+/* Container */
+.course-review-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  padding: 2rem;
+}
+
+/* Header Section */
+.course-review-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.course-review-header h1 {
+  font-size: 2.5rem;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.course-review-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+/* Content Wrapper */
+.course-review-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===========================
+   COURSE SELECTOR STYLES
+   =========================== */
+
+.course-selector-container {
+  margin-bottom: 2rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.selector-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  max-width: 600px;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.selector-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(37, 99, 235, 0.15);
+}
+
+.selector-label {
+  display: block;
+  font-size: 1.1rem;
+  color: #334155;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.course-select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  background: white;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.course-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.course-select:hover {
+  border-color: #2563eb;
+}
+
+/* ===========================
+   COURSE CARDS GRID
+   =========================== */
+
+.review-form-wrapper {
+  animation: fadeIn 1s ease-out;
+}
+
+.course-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ===========================
+   COURSE CARD STYLES
+   =========================== */
+
+.course-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slideUp 0.6s ease-out;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+}
+
+.course-card-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  padding: 1.25rem 1.5rem;
+  color: white;
+}
+
+.course-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.course-card-body {
+  padding: 1.5rem;
+}
+
+/* ===========================
+   REVIEW FORM STYLES
+   =========================== */
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.required {
+  color: #ef4444;
+}
+
+.optional {
+  color: #64748b;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+/* Course Name Input */
+.course-input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  color: #334155;
+}
+
+.course-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.course-input::placeholder {
+  color: #94a3b8;
+}
+
+/* ===========================
+   SLIDER STYLES
+   =========================== */
+
+.slider-container {
+  margin-top: 0.5rem;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right, #dbeafe 0%, #2563eb 100%);
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.slider:hover {
+  opacity: 0.9;
+}
+
+/* Webkit browsers (Chrome, Safari) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+}
+
+/* Firefox */
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+}
+
+/* Slider Value Display */
+.slider-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  gap: 0.5rem;
+}
+
+.value-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #2563eb;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.value-label {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Slider Labels */
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Different slider color variations */
+.stress-slider {
+  background: linear-gradient(to right, #dbeafe 0%, #ef4444 100%);
+}
+
+.difficulty-slider {
+  background: linear-gradient(to right, #dbeafe 0%, #f59e0b 100%);
+}
+
+.relevance-slider {
+  background: linear-gradient(to right, #dbeafe 0%, #10b981 100%);
+}
+
+.stress-slider::-webkit-slider-thumb {
+  background: #ef4444;
+}
+
+.stress-slider::-moz-range-thumb {
+  background: #ef4444;
+}
+
+.difficulty-slider::-webkit-slider-thumb {
+  background: #f59e0b;
+}
+
+.difficulty-slider::-moz-range-thumb {
+  background: #f59e0b;
+}
+
+.relevance-slider::-webkit-slider-thumb {
+  background: #10b981;
+}
+
+.relevance-slider::-moz-range-thumb {
+  background: #10b981;
+}
+
+/* Update value colors to match sliders */
+.stress-slider + .slider-value .value-number {
+  background: #ef4444;
+}
+
+.stress-slider + .slider-value .value-label {
+  color: #ef4444;
+}
+
+.difficulty-slider + .slider-value .value-number {
+  background: #f59e0b;
+}
+
+.difficulty-slider + .slider-value .value-label {
+  color: #f59e0b;
+}
+
+.relevance-slider + .slider-value .value-number {
+  background: #10b981;
+}
+
+.relevance-slider + .slider-value .value-label {
+  color: #10b981;
+}
+
+/* ===========================
+   FEEDBACK TEXTAREA
+   =========================== */
+
+.feedback-textarea {
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  resize: vertical;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  color: #334155;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.feedback-textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* ===========================
+   ACTION BUTTONS
+   =========================== */
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  animation: fadeIn 1.2s ease-out;
+}
+
+.submit-btn,
+.reset-btn {
+  padding: 0.875rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.reset-btn {
+  background: white;
+  color: #64748b;
+  border: 2px solid #cbd5e1;
+}
+
+.reset-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #334155;
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   SUCCESS MESSAGE
+   =========================== */
+
+.success-message {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  margin: 2rem auto;
+  animation: bounceIn 0.8s ease-out;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.success-message h3 {
+  color: #1e40af;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.success-message p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 768px) {
+  .course-review-container {
+    padding: 1rem;
+  }
+
+  .course-review-header h1 {
+    font-size: 2rem;
+  }
+
+  .course-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .submit-btn,
+  .reset-btn {
+    width: 100%;
+  }
+
+  .selector-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-review-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .course-review-header p {
+    font-size: 1rem;
+  }
+
+  .course-card-body {
+    padding: 1rem;
+  }
+}

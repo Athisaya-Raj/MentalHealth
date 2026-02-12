@@ -1,0 +1,607 @@
+/* ─── Timetable Module — Blue & White Theme ─────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue-50:  #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+
+  --slate-50:  #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(30, 58, 138, 0.06), 0 1px 2px rgba(30, 58, 138, 0.04);
+  --shadow-md: 0 4px 16px rgba(30, 58, 138, 0.08), 0 2px 6px rgba(30, 58, 138, 0.05);
+  --shadow-lg: 0 8px 32px rgba(30, 58, 138, 0.12), 0 4px 12px rgba(30, 58, 138, 0.07);
+  --shadow-glow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+.tt-card {
+  background: var(--white);
+  border: 1px solid var(--blue-100);
+  border-radius: var(--radius-xl);
+  padding: 36px 40px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.tt-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-400), var(--blue-600));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.tt-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Card Header ──────────────────────────────────────────────────────────── */
+.tt-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.tt-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.tt-card-titles {
+  flex: 1;
+}
+
+.tt-card-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-900);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.tt-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--slate-500);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Section Badge ────────────────────────────────────────────────────────── */
+.tt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-600);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+/* ── Field Group ─────────────────────────────────────────────────────────── */
+.tt-field {
+  margin-bottom: 28px;
+}
+
+.tt-field:last-child {
+  margin-bottom: 0;
+}
+
+.tt-label {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tt-label-value {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blue-600);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  padding: 2px 10px;
+  border-radius: 20px;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+.tt-divider {
+  border: none;
+  border-top: 1px solid var(--blue-100);
+  margin: 28px 0;
+}
+
+/* ── Slider ──────────────────────────────────────────────────────────────── */
+.tt-slider-wrap {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.tt-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;
+  transition: height var(--transition);
+}
+
+.tt-slider:hover {
+  height: 8px;
+}
+
+.tt-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue-500);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.tt-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 2px 8px rgba(59, 130, 246, 0.35);
+}
+
+.tt-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue-500);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+  cursor: pointer;
+}
+
+.tt-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.tt-slider-scale span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  font-weight: 500;
+}
+
+.tt-slider-scale .scale-low  { color: var(--blue-400); }
+.tt-slider-scale .scale-high { color: var(--blue-700); }
+
+.tt-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-top: 4px;
+}
+
+.tt-slider-ticks span {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--slate-300);
+}
+
+/* ── Number Input ────────────────────────────────────────────────────────── */
+.tt-number-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tt-number-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue-200);
+  background: var(--blue-50);
+  color: var(--blue-600);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  flex-shrink: 0;
+}
+
+.tt-number-btn:hover {
+  background: var(--blue-500);
+  color: var(--white);
+  border-color: var(--blue-500);
+  transform: scale(1.08);
+}
+
+.tt-number-display {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  min-width: 40px;
+  text-align: center;
+}
+
+/* ── Radio / Select Group ────────────────────────────────────────────────── */
+.tt-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tt-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--blue-200);
+  background: var(--blue-50);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--slate-600);
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.tt-radio-option:hover {
+  border-color: var(--blue-400);
+  background: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.tt-radio-option.selected {
+  border-color: var(--blue-500);
+  background: var(--blue-600);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.tt-radio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.tt-radio-option.selected .tt-radio-dot {
+  opacity: 1;
+  background: rgba(255,255,255,0.9);
+}
+
+/* ── Toggle (Yes/No) ─────────────────────────────────────────────────────── */
+.tt-toggle-group {
+  display: flex;
+  gap: 10px;
+}
+
+.tt-toggle-btn {
+  padding: 10px 28px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--blue-200);
+  background: var(--blue-50);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.tt-toggle-btn:hover {
+  border-color: var(--blue-400);
+  color: var(--blue-600);
+}
+
+.tt-toggle-btn.active-yes {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+.tt-toggle-btn.active-no {
+  background: #fee2e2;
+  border-color: #f87171;
+  color: #b91c1c;
+}
+
+/* ── Select Dropdown ─────────────────────────────────────────────────────── */
+.tt-select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--blue-200);
+  background: var(--blue-50);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--slate-700);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+.tt-select:focus {
+  border-color: var(--blue-500);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Textarea ────────────────────────────────────────────────────────────── */
+.tt-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--blue-200);
+  background: var(--blue-50);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--slate-700);
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  box-sizing: border-box;
+}
+
+.tt-textarea:focus {
+  border-color: var(--blue-500);
+  background: var(--white);
+  box-shadow: var(--shadow-glow);
+}
+
+.tt-textarea::placeholder {
+  color: var(--slate-300);
+}
+
+.tt-char-count {
+  text-align: right;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  margin-top: 6px;
+}
+
+/* ── Checkbox ────────────────────────────────────────────────────────────── */
+.tt-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.tt-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--blue-100);
+  background: var(--slate-50);
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.tt-checkbox-item:hover {
+  border-color: var(--blue-300);
+  background: var(--blue-50);
+}
+
+.tt-checkbox-item.checked {
+  border-color: var(--blue-400);
+  background: var(--blue-50);
+  box-shadow: 0 2px 6px rgba(59,130,246,0.1);
+}
+
+.tt-checkbox-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--blue-300);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.tt-checkbox-item.checked .tt-checkbox-box {
+  background: var(--blue-500);
+  border-color: var(--blue-500);
+}
+
+.tt-checkbox-check {
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  display: none;
+}
+
+.tt-checkbox-item.checked .tt-checkbox-check {
+  display: block;
+}
+
+.tt-checkbox-label {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--slate-600);
+}
+
+.tt-checkbox-item.checked .tt-checkbox-label {
+  color: var(--blue-700);
+}
+
+/* ── Heatmap ─────────────────────────────────────────────────────────────── */
+.tt-heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tt-heatmap-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.tt-heatmap-day {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-600);
+  text-align: right;
+}
+
+.tt-heatmap-options {
+  display: flex;
+  gap: 8px;
+}
+
+.tt-heat-btn {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+
+.tt-heat-btn.light {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.tt-heat-btn.light:hover,
+.tt-heat-btn.light.active {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(34,197,94,0.3);
+}
+
+.tt-heat-btn.moderate {
+  background: #fefce8;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.tt-heat-btn.moderate:hover,
+.tt-heat-btn.moderate.active {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(245,158,11,0.3);
+}
+
+.tt-heat-btn.heavy {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.tt-heat-btn.heavy:hover,
+.tt-heat-btn.heavy.active {
+  background: #f43f5e;
+  border-color: #f43f5e;
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(244,63,94,0.3);
+}
+
+.tt-heatmap-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--blue-100);
+}
+
+.tt-heatmap-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.tt-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
