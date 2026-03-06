@@ -10,13 +10,18 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // TEMP LOGIN LOGIC
+
     if (username === "student" && password === "student") {
       navigate("/student/home");
-    } else {
+    } 
+    else if (username === "teacher" && password === "teacher") {
+      navigate("/teacher");
+    } 
+    else {
       setError("Invalid username or password");
     }
   };
+
 
   return (
     <div className="login-container">

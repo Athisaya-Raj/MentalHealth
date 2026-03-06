@@ -3,11 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 function StudentHome() {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+  };
+
   return (
     <div className="home-container">
       
       {/* Header */}
       <header className="home-header">
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+
         <h1>DEPARTMENT OF INFORMATION TECHNOLOGY</h1>
         <p>
           A department-focused platform to understand academic pressure,
@@ -20,7 +29,7 @@ function StudentHome() {
         <h2>Student Mental Health Monitoring System</h2>
 
         <div className="modules-grid">
-          <div className="module-card" onClick={() => navigate("/Academics")}>
+          <div className="module-card" onClick={() => navigate("/academics")}>
             <h3>📘 Academics</h3>
             <p>Course load, subject difficulty, and academic pressure.</p>
           </div>
@@ -30,15 +39,15 @@ function StudentHome() {
             <p>Lab hours, theory balance, and timetable gaps.</p>
           </div>
 
-          <div className="module-card">
+          <div className="module-card" onClick={() => navigate("/student/placement")}>
             <h3>💼 Placements & Internships</h3>
             <p>Internship status, placement stress, and expectations.</p>
           </div>
 
           <div className="module-card" onClick={() => navigate("/student/course-wise-review")}>
-            <h3>📚 CourseWise Review</h3>
-            <p>Industry relevance of subjects and skill alignment.</p>
-          </div>
+             <h3>📚 CourseWise Review</h3>
+              <p>Industry relevance of subjects and skill alignment.</p> 
+              </div>
 
           <div className="module-card">
             <h3>💙 Mental Well-Being</h3>
