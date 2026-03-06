@@ -7,18 +7,38 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    if (username === "student" && password === "student") {
-      navigate("/student/home");
-    } 
-    else if (username === "teacher" && password === "teacher") {
-      navigate("/teacher");
-    } 
-    else {
-      setError("Invalid username or password");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: username, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Invalid username or password");
+      }
+
+      if (data.teacher) {
+        localStorage.setItem("userRole", "teacher");
+        navigate("/teacher");
+      } else {
+        localStorage.setItem("userRole", "student");
+        localStorage.setItem("studentId", data.student.id);
+        navigate("/student/home");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +71,7 @@ function Login() {
         <h2 className="login-title">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label className="form-label">Username</label>
+            <label className="form-label">Username (Email)</label>
             <div className="input-wrapper">
               <svg
                 className="input-icon"
@@ -69,7 +89,7 @@ function Login() {
               <input
                 type="text"
                 className="form-input"
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -117,17 +137,21 @@ function Login() {
             </div>
           )}
 
-          <button type="submit" className="login-button">
-            Login
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
         <div className="support-text">
           <p>
-            Need help?{" "}
-            <a href="#" className="support-link">
-              Contact Support
-            </a>
+            Don't have an account?{" "}
+            <span 
+              onClick={() => navigate('/signup')} 
+              className="support-link"
+              style={{ cursor: 'pointer' }}
+            >
+              Sign Up
+            </span>
           </p>
         </div>
       </div>

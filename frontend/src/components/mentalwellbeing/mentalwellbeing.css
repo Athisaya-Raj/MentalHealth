@@ -1,0 +1,275 @@
+/* Custom CSS for Mental Wellbeing Module */
+.mw-dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f0f4f8;
+  font-family: inherit;
+  color: #333;
+}
+
+.mw-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.mw-header h1 {
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+}
+
+.mw-header p {
+  color: #64748b;
+}
+
+.mw-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mw-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.mw-card h2 {
+  margin-top: 0;
+  color: #1e40af;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.mw-mood-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.mw-mood-option {
+  flex: 1;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.mw-mood-option:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.mw-mood-option.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.mw-mood-emoji {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.mw-mood-label {
+  font-size: 0.875rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.mw-causes {
+  margin-top: 1rem;
+}
+
+.mw-causes p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.mw-chip-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mw-chip {
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.mw-chip:hover {
+  background: #e2e8f0;
+}
+
+.mw-chip.selected {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.mw-slider-group {
+  margin-bottom: 1.25rem;
+}
+
+.mw-slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.mw-slider-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.mw-slider {
+  width: 100%;
+  accent-color: #3b82f6;
+  height: 6px;
+  border-radius: 3px;
+  background: #e2e8f0;
+  outline: none;
+}
+
+.mw-wall-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mw-wall-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.mw-wall-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.mw-btn-primary {
+  align-self: flex-end;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.mw-btn-primary:hover {
+  background: #2563eb;
+}
+
+.mw-post {
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.mw-post:last-child {
+  margin-bottom: 0;
+}
+
+.mw-post-author {
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.mw-post-content {
+  color: #334155;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.mw-post-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.mw-btn-action {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.mw-btn-action:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.mw-support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.mw-support-btn {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.mw-support-btn:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+}
+
+.mw-support-btn.urgent {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.mw-support-btn.urgent:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}

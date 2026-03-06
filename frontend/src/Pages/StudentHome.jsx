@@ -10,7 +10,7 @@ function StudentHome() {
 
   return (
     <div className="home-container">
-      
+
       {/* Header */}
       <header className="home-header">
         <button className="logout-btn" onClick={handleLogout}>
@@ -39,19 +39,19 @@ function StudentHome() {
             <p>Lab hours, theory balance, and timetable gaps.</p>
           </div>
 
-          <div className="module-card" onClick={() => navigate("/student/placement")}>
+          <div className="module-card" onClick={() => navigate("/placements")}>
             <h3>💼 Placements & Internships</h3>
             <p>Internship status, placement stress, and expectations.</p>
           </div>
 
           <div className="module-card" onClick={() => navigate("/student/course-wise-review")}>
-             <h3>📚 CourseWise Review</h3>
-              <p>Industry relevance of subjects and skill alignment.</p> 
-              </div>
+            <h3>📚 CourseWise Review</h3>
+            <p>Industry relevance of subjects and skill alignment.</p>
+          </div>
 
-          <div className="module-card">
-            <h3>💙 Mental Well-Being</h3>
-            <p>Stress levels, motivation, and emotional health.</p>
+          <div className="module-card" onClick={() => navigate("/mentalwellbeing")}>
+            <h3>🧠 Mental Wellbeing</h3>
+            <p>Track mood, stress levels, and get support when needed.</p>
           </div>
         </div>
       </section>
@@ -67,3 +67,12 @@ function StudentHome() {
 }
 
 export default StudentHome;
+
+
+
+
+
+
+
+
+

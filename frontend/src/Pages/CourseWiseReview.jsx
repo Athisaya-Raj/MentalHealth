@@ -38,9 +38,8 @@ const CourseWiseReview = () => {
     setCourseReviews(updatedReviews);
   };
 
-  
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validate that all courses have names
@@ -53,13 +52,38 @@ const CourseWiseReview = () => {
 
     // Log the data (in production, send to backend)
     console.log('Course Reviews Submitted:', courseReviews);
+    
+    try {
+      const studentId = localStorage.getItem("studentId") || "dummy-student-id";
+      
+      // send a request for each course review
+      await Promise.all(courseReviews.map(async (review) => {
+        const payload = {
+          studentId,
+          courseName: review.courseName,
+          difficultyLevel: review.difficultyLevel,
+          understandingLevel: review.stressLevel, // mapping existing UI field to model
+          workloadRating: review.relevance, // mapping existing UI field to model
+          comments: review.feedback
+        };
+
+        return fetch("http://localhost:5000/api/surveys/course-review", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }));
+
+    } catch (e) {
+      console.error("Failed to save course reviews", e);
+    }
+    
     setIsSubmitted(true);
     
     // Show success message and navigate after user clicks OK
     alert('Course reviews submitted successfully!');
     navigate('/student/home');  // ← ADD THIS LINE
     };
-
   // Reset form
   const handleReset = () => {
     setNumberOfCourses(0);

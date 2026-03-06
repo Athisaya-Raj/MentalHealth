@@ -71,15 +71,32 @@ export default function Timetable() {
   };
 
   /** Finish handler — logs to console, then navigates back */
-  const handleFinish = () => {
+  const handleFinish = async () => {
     console.log('═══════════════════════════════════════════════');
     console.log('  TIMETABLE MODULE — FORM DATA SUBMITTED');
     console.log('═══════════════════════════════════════════════');
     console.log(JSON.stringify(timetableData, null, 2));
     console.log('═══════════════════════════════════════════════');
 
-    // TODO: Replace with API / database save call
-    // e.g. await saveToDatabase(timetableData);
+    try {
+      const studentId = localStorage.getItem("studentId");
+      
+      const payload = {
+        studentId: studentId || "dummy-student-id",
+        hoursStudied: timetableData.timeAvailability.selfStudyTime,
+        sleepHours: timetableData.timeAvailability.sleepHours || 6, // extract from data if available, defaulting to 6
+        workloadStressLevel: timetableData.assignmentLoad.loadIntensity
+      };
+
+      await fetch("http://localhost:5000/api/surveys/workload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+    } catch (e) {
+      console.error("Failed to submit workload data", e);
+    }
 
     setSubmitted(true);
     setTimeout(() => {
@@ -337,7 +354,7 @@ export default function Timetable() {
                 }}
               >
                 <span>✅</span>
-                Submit & Finish Survey
+                Submit
               </button>
               <p style={{
                 fontFamily: 'var(--font-body)',

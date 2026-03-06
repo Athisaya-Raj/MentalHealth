@@ -17,7 +17,7 @@ function Suggestions({ setFormData }) {
     }));
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     // Save in parent state
     setFormData((prev) => ({
       ...prev,
@@ -26,6 +26,27 @@ function Suggestions({ setFormData }) {
 
     // Temporary save (MongoDB later)
     localStorage.setItem("suggestions", JSON.stringify(feedback));
+
+    try {
+      const studentId = localStorage.getItem("studentId") || "dummy-student-id";
+      const academicStress = JSON.parse(localStorage.getItem("academicStress") || "{}");
+      
+      const payload = {
+        studentId,
+        moodLevel: 3, // Defaulting as UI doesn't explicitly capture this
+        stressLevel: academicStress.stressLevel || 3,
+        motivationLevel: 3, // Defaulting as UI doesn't explicitly capture this
+        notes: `${feedback.stressReduction} | ${feedback.learningImprovement}`
+      };
+
+      await fetch("http://localhost:5000/api/surveys/mental", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (e) {
+      console.error("Failed to submit mental wellbeing data", e);
+    }
 
     // Go back to Student Home
     navigate("/student/home");
