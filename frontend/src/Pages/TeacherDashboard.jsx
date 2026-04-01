@@ -1,130 +1,94 @@
-// Pages/TeacherDashboard.jsx
-// ─────────────────────────────────────────────────────────────
-// Main Teacher Dashboard page with batch-based analytics.
-//
-// State:
-//   selectedYear: "all" → Department Overview
-//   selectedYear: "1st" | "2nd" | "3rd" | "4th" → Year Detail
-//
-// Data flow:
-//   teacherData.json (local) → allData state
-//   Filtered slice passed as `data` prop to child components
-//
-// TODO (backend): Replace JSON import + useEffect data init with:
-//   useEffect(() => {
-//     fetch('/api/teacher/all-responses')
-//       .then(r => r.json())
-//       .then(setAllData)
-//       .catch(console.error);
-//   }, []);
-// ─────────────────────────────────────────────────────────────
+import React, { useState, useEffect } from "react";
+import TeacherSidebar from "../components/teacher/TeacherSidebar";
+import TeacherOverview from "../components/teacher/TeacherOverview";
+import ClassAnalytics from "../components/teacher/ClassAnalytics";
+import RiskDetection from "../components/teacher/RiskDetection";
+import MenteePanel from "../components/teacher/MenteePanel";
+import FeedbackPanel from "../components/teacher/FeedbackPanel";
+import PressureMonitor from "../components/teacher/PressureMonitor";
+import AlertsPanel from "../components/teacher/AlertsPanel";
+import TrendAnalytics from "../components/teacher/TrendAnalytics";
+import MentoringNotes from "../components/teacher/MentoringNotes";
 
-import React, { useState, useMemo } from 'react';
+import "../components/teacher/teacher.css";
 
 // Data
-import rawData from '../data/teacherData.json';
-
-// Components
-import BatchSelector     from '../components/teacher/BatchSelector';
-import DepartmentOverview from '../components/teacher/DepartmentOverview';
-import YearAnalytics     from '../components/teacher/YearAnalytics';
-
-// Styles
-import '../components/teacher/teacher.css';
-
-// ── TeacherDashboard ────────────────────────────────────────
+import rawData from "../data/teacherData.json";
 
 const TeacherDashboard = () => {
-  // ── State ─────────────────────────────────────────────────
-  const [selectedYear, setSelectedYear] = useState('all');
+  const [activeTab, setActiveTab] = useState("overview");
 
-  // TODO (backend): Replace with API fetch result
+  // Load teacherData
   const [allData] = useState(rawData);
 
-  // ── Derived data ──────────────────────────────────────────
-
-  // Filtered slice for the selected year (or all if "all")
-  const filteredData = useMemo(() => {
-    if (selectedYear === 'all') return allData;
-    return allData.filter((r) => r.year === selectedYear);
-  }, [allData, selectedYear]);
-
-  // Year summaries for BatchSelector badge counts
-  const yearSummaries = useMemo(() => {
-    const years = ['1st', '2nd', '3rd', '4th'];
-    return years.map((yr) => {
-      const rows = allData.filter((r) => r.year === yr);
-      if (!rows.length) return { year: yr, riskLevel: 'low', responses: 0 };
-      const avgEx = rows.reduce((s, r) => s + r.exhaustion, 0) / rows.length;
-      const avgWl = rows.reduce((s, r) => s + r.workload,   0) / rows.length;
-      const riskLevel =
-        avgEx >= 8 && avgWl >= 8 ? 'high' :
-        avgEx >= 5               ? 'moderate' : 'low';
-      return { year: yr, riskLevel, responses: rows.length };
-    });
-  }, [allData]);
-
-  // ── Handlers ──────────────────────────────────────────────
-
-  const handleSelectYear = (year) => setSelectedYear(year);
-  const handleBack       = ()     => setSelectedYear('all');
-
-  // ── Render ────────────────────────────────────────────────
+  // Render content based on active tab
+  const renderContent = () => {
+    switch (activeTab) {
+      case "overview":
+        return <TeacherOverview data={allData} onNavigate={setActiveTab} />;
+      case "class-analytics":
+        return <ClassAnalytics data={allData} />;
+      case "risk-detection":
+        return <RiskDetection data={allData} />;
+      case "mentee-panel":
+        return <MenteePanel data={allData} />;
+      case "feedback-messages":
+        return <FeedbackPanel data={allData} />;
+      case "academic-pressure":
+        return <PressureMonitor data={allData} />;
+      case "alerts":
+        return <AlertsPanel data={allData} />;
+      case "trends":
+        return <TrendAnalytics data={allData} />;
+      case "mentoring-notes":
+        return <MentoringNotes data={allData} />;
+      default:
+        return <TeacherOverview data={allData} onNavigate={setActiveTab} />;
+    }
+  };
 
   return (
-    <div className="teacher-dashboard">
-
-      {/* ── Top Header ──────────────────────────────────── */}
-      <header className="t-header">
-        <div className="t-header__brand">
-          <div className="t-header__logo">🎓</div>
-          <div>
-            <div className="t-header__title">Teacher Dashboard</div>
-            <div className="t-header__sub">
-              Mental Health & Academic Workload Monitoring
-            </div>
+    <div className="teacher-dashboard-layout">
+      <TeacherSidebar activeTab={activeTab} onSelectTab={setActiveTab} />
+      <main className="teacher-main-content">
+        {/* Top Header */}
+        <header className="teacher-top-header">
+          <div className="teacher-header-left">
+            <h2>{renderHeaderTitle(activeTab)}</h2>
           </div>
-        </div>
-
-        <div className="t-header__right">
-          <div className="t-header__chip">
-            🕐 {new Date().toLocaleDateString('en-GB', {
-              day: '2-digit', month: 'short', year: 'numeric'
-            })}
+          <div className="teacher-header-right">
+            <span className="teacher-date-badge">
+              {new Date().toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+            <div className="teacher-avatar">T</div>
           </div>
-          <div className="t-header__chip">
-            📊 {allData.length} total responses
-          </div>
-          <div className="t-header__avatar">AS</div>
-        </div>
-      </header>
+        </header>
 
-      {/* ── Batch/Year Selector ─────────────────────────── */}
-      <BatchSelector
-        selectedYear={selectedYear}
-        onSelectYear={handleSelectYear}
-        yearSummaries={yearSummaries}
-      />
-
-      {/* ── Main Content ────────────────────────────────── */}
-      <main className="t-main">
-        {selectedYear === 'all' ? (
-          // Department overview
-          <DepartmentOverview
-            allData={allData}
-            onSelectYear={handleSelectYear}
-          />
-        ) : (
-          // Year-specific detail
-          <YearAnalytics
-            year={selectedYear}
-            data={filteredData}
-            onBack={handleBack}
-          />
-        )}
+        {/* Dynamic Panel Content */}
+        <div className="teacher-panel-view">{renderContent()}</div>
       </main>
     </div>
   );
 };
 
-export default TeacherDashboard;
+// Helper for Header Titles
+const renderHeaderTitle = (tab) => {
+  const titles = {
+    overview: "Overview",
+    "class-analytics": "Class Analytics",
+    "risk-detection": "Risk Detection",
+    "mentee-panel": "Mentee Monitoring Panel",
+    "feedback-messages": "Feedback & Messages",
+    "academic-pressure": "Academic Pressure Monitor",
+    alerts: "Alerts & Notifications",
+    trends: "Well-Being Trends",
+    "mentoring-notes": "Mentoring Notes",
+  };
+  return titles[tab] || "Teacher Dashboard";
+};
+
+export default TeacherDashboard;

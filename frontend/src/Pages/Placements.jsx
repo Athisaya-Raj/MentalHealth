@@ -3,8 +3,8 @@
 // Route: /student/placement
 // Simply mounts the PlacementDashboard.
 // =============================================
-import PlacementDashboard from "../components/placements/PlacementDashboard";
 
+import PlacementDashboard from "../components/placements/PlacementDashboard";
 
 function Placements() {
   return <PlacementDashboard />;

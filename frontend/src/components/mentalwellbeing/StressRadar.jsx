@@ -1,50 +1,101 @@
 import React, { useState } from "react";
 
-const SLIDERS = [
-  { id: "academics", label: "Academics Stress" },
-  { id: "placements", label: "Placement Pressure" },
-  { id: "sleep", label: "Sleep Quality" },
-  { id: "motivation", label: "Motivation Level" },
+const stressFactors = [
+  { label: "Academic Stress", icon: "📚", key: "academic", invertedGood: true },
+  { label: "Placement Pressure", icon: "💼", key: "placement", invertedGood: true },
+  { label: "Sleep Quality", icon: "😴", key: "sleep", invertedGood: false },
+  { label: "Motivation Level", icon: "🔥", key: "motivation", invertedGood: false },
 ];
 
-function StressRadar() {
+const getEmoji = (value, invertedGood) => {
+  if (invertedGood) {
+    if (value <= 2) return { emoji: "😊", label: "Low", color: "#4ade80" };
+    if (value === 3) return { emoji: "😐", label: "Medium", color: "#facc15" };
+    return { emoji: "😣", label: "High", color: "#f87171" };
+  } else {
+    if (value <= 2) return { emoji: "😣", label: "Low", color: "#f87171" };
+    if (value === 3) return { emoji: "😐", label: "Medium", color: "#facc15" };
+    return { emoji: "😊", label: "High", color: "#4ade80" };
+  }
+};
+
+const getTrackColor = (value, invertedGood) => {
+  const feedback = getEmoji(value, invertedGood);
+  return feedback.color;
+};
+
+const StressRadar = () => {
   const [values, setValues] = useState({
-    academics: 3,
-    placements: 3,
+    academic: 3,
+    placement: 3,
     sleep: 3,
     motivation: 3,
   });
 
-  const handleChange = (id, newValue) => {
-    setValues((prev) => ({ ...prev, [id]: newValue }));
+  const handleChange = (key, val) => {
+    setValues((prev) => ({ ...prev, [key]: Number(val) }));
   };
 
   return (
-    <div className="mw-card">
-      <h2>Stress Radar</h2>
-      
-      <div className="mw-sliders-container">
-        {SLIDERS.map((slider) => (
-          <div key={slider.id} className="mw-slider-group">
-            <div className="mw-slider-header">
-              <label htmlFor={`slider-${slider.id}`}>{slider.label}</label>
-              <span>{values[slider.id]} / 5</span>
+    <div className="mw-section-inner">
+      <div className="mw-section-header">
+        <span className="mw-section-icon">📡</span>
+        <div>
+          <h2 className="mw-section-title">Stress Radar</h2>
+          <p className="mw-section-desc">Slide to reflect your current levels</p>
+        </div>
+      </div>
+
+      <div className="mw-sliders">
+        {stressFactors.map((factor) => {
+          const feedback = getEmoji(values[factor.key], factor.invertedGood);
+          return (
+            <div className="mw-slider-row" key={factor.key}>
+              <div className="mw-slider-header">
+                <span className="mw-slider-icon">{factor.icon}</span>
+                <span className="mw-slider-label">{factor.label}</span>
+                <span
+                  className="mw-slider-feedback"
+                  style={{ color: feedback.color }}
+                >
+                  {feedback.emoji} <span className="mw-slider-feedback-text">{feedback.label}</span>
+                </span>
+              </div>
+              <div className="mw-slider-track-wrap">
+                <span className="mw-slider-min">1</span>
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  value={values[factor.key]}
+                  onChange={(e) => handleChange(factor.key, e.target.value)}
+                  className="mw-slider"
+                  style={{
+                    "--thumb-color": getTrackColor(values[factor.key], factor.invertedGood),
+                    "--fill-pct": `${((values[factor.key] - 1) / 4) * 100}%`,
+                  }}
+                />
+                <span className="mw-slider-max">5</span>
+              </div>
+              <div className="mw-slider-dots">
+                {[1, 2, 3, 4, 5].map((dot) => (
+                  <span
+                    key={dot}
+                    className={`mw-dot ${dot <= values[factor.key] ? "mw-dot--active" : ""}`}
+                    style={
+                      dot <= values[factor.key]
+                        ? { background: getTrackColor(values[factor.key], factor.invertedGood) }
+                        : {}
+                    }
+                  />
+                ))}
+              </div>
             </div>
-            <input
-              type="range"
-              id={`slider-${slider.id}`}
-              className="mw-slider"
-              min="1"
-              max="5"
-              step="1"
-              value={values[slider.id]}
-              onChange={(e) => handleChange(slider.id, parseInt(e.target.value, 10))}
-            />
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
-}
+};
 
 export default StressRadar;

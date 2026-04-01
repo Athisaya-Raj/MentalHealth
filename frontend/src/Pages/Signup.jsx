@@ -71,10 +71,10 @@ function Signup() {
         <p className="subtitle">Join us to prioritize your wellbeing</p>
       </div>
 
-      <div className="login-box" style={{ maxWidth: '600px', marginTop: '1rem' }}>
+      <div className="login-box" style={{ maxWidth: '600px', width: '100%', marginTop: '1rem', padding: '2rem', boxSizing: 'border-box' }}>
         <h2 className="login-title">Sign Up</h2>
-        <form onSubmit={handleSignup} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-          
+        <form onSubmit={handleSignup} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1rem', width: '100%' }}>
+
           <div className="form-group" style={{ gridColumn: '1 / -1' }}>
             <label className="form-label">Name</label>
             <input
@@ -103,7 +103,7 @@ function Signup() {
 
           <div className="form-group">
             <label className="form-label">Year</label>
-             <input
+            <input
               type="text"
               name="year"
               className="form-input"
@@ -116,7 +116,7 @@ function Signup() {
 
           <div className="form-group">
             <label className="form-label">Class / Section</label>
-             <input
+            <input
               type="text"
               name="classSection"
               className="form-input"
@@ -129,7 +129,7 @@ function Signup() {
 
           <div className="form-group">
             <label className="form-label">Register Number</label>
-             <input
+            <input
               type="text"
               name="registerNumber"
               className="form-input"
@@ -189,9 +189,9 @@ function Signup() {
         <div className="support-text" style={{ marginTop: '1rem' }}>
           <p>
             Already have an account?{" "}
-            <span 
-              onClick={() => navigate('/')} 
-              className="support-link" 
+            <span
+              onClick={() => navigate('/')}
+              className="support-link"
               style={{ cursor: 'pointer' }}
             >
               Login

@@ -14,6 +14,14 @@ function Login() {
     setLoading(true);
     setError("");
 
+    // Temporary easy login for teacher
+    if (username === "teacher" && password === "teacher") {
+      localStorage.setItem("userRole", "teacher");
+      navigate("/teacher");
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",

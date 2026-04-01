@@ -29,11 +29,6 @@ function StudentHome() {
         <h2>Student Mental Health Monitoring System</h2>
 
         <div className="modules-grid">
-          <div className="module-card" onClick={() => navigate("/academics")}>
-            <h3>📘 Academics</h3>
-            <p>Course load, subject difficulty, and academic pressure.</p>
-          </div>
-
           <div className="module-card" onClick={() => navigate("/student/timetable")}>
             <h3>🗓 Timetable & Workload</h3>
             <p>Lab hours, theory balance, and timetable gaps.</p>
@@ -53,13 +48,17 @@ function StudentHome() {
             <h3>🧠 Mental Wellbeing</h3>
             <p>Track mood, stress levels, and get support when needed.</p>
           </div>
+
+          <div className="module-card" onClick={() => navigate("/mentalwellbeing/resources")}>
+            <h3>🌱 Wellbeing Resources</h3>
+            <p>Relax, recharge, and feel better.</p>
+          </div>
         </div>
       </section>
 
       {/* Call to Action */}
       <section className="cta-section">
-        <p>Your responses help the department improve student experience.</p>
-        <button className="start-btn">Get Started</button>
+        <p>.</p>
       </section>
 
     </div>
