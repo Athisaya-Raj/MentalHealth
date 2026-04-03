@@ -70,12 +70,12 @@ function PlacementDashboard() {
   // Which question we're on (0-indexed); null = all done
   const [currentStep, setCurrentStep] = useState(0);
 
-  // Collected answers — keys match QUESTIONS[n].fieldKey
+  // Collected answers — keys match QUESTIONS[n].fieldKey, values are arrays
   const [answers, setAnswers] = useState({
-    preparationFrequency: "",
-    preparationChallenge: "",
-    internshipStatus:     "",
-    interviewConfidence:  "",
+    preparationFrequency: [],
+    preparationChallenge: [],
+    internshipStatus:     [],
+    interviewConfidence:  [],
   });
 
   // Whether the flow is complete
@@ -88,23 +88,25 @@ function PlacementDashboard() {
           const studentId = localStorage.getItem("studentId") || "dummy-student-id";
           
           let confidenceLevel = 3;
-          if (answers.interviewConfidence === "not-ready") confidenceLevel = 1;
-          else if (answers.interviewConfidence === "slight") confidenceLevel = 2;
-          else if (answers.interviewConfidence === "moderate") confidenceLevel = 3;
-          else if (answers.interviewConfidence === "confident") confidenceLevel = 4;
+          const conf = answers.interviewConfidence;
+          if (conf.includes("not-ready")) confidenceLevel = 1;
+          else if (conf.includes("slight")) confidenceLevel = 2;
+          else if (conf.includes("moderate")) confidenceLevel = 3;
+          else if (conf.includes("confident")) confidenceLevel = 4;
 
           let preparationLevel = 3;
-          if (answers.preparationFrequency === "not-started") preparationLevel = 1;
-          else if (answers.preparationFrequency === "occasional") preparationLevel = 2;
-          else if (answers.preparationFrequency === "regularly") preparationLevel = 3;
-          else if (answers.preparationFrequency === "daily") preparationLevel = 4;
+          const prep = answers.preparationFrequency;
+          if (prep.includes("not-started")) preparationLevel = 1;
+          else if (prep.includes("occasional")) preparationLevel = 2;
+          else if (prep.includes("regularly")) preparationLevel = 3;
+          else if (prep.includes("daily")) preparationLevel = 4;
 
           const payload = {
             studentId,
             preparationLevel,
             problemsSolved: 0,
             confidenceLevel,
-            needsHelp: answers.preparationChallenge !== "no-issues"
+            needsHelp: !answers.preparationChallenge.includes("no-issues"),
           };
 
           await fetch("http://localhost:5000/api/surveys/placement", {
@@ -120,14 +122,10 @@ function PlacementDashboard() {
     submitData();
   }, [isDone, answers]);
 
-  // Called by QuestionCard when a user picks an answer
-  const handleAnswer = (optionId) => {
+  // Called by QuestionCard when a user confirms their selections (array)
+  const handleAnswer = (selectedIds) => {
     const fieldKey = QUESTIONS[currentStep].fieldKey;
-
-    // Save answer
-    setAnswers((prev) => ({ ...prev, [fieldKey]: optionId }));
-
-    // Advance to next question (or completion)
+    setAnswers((prev) => ({ ...prev, [fieldKey]: selectedIds }));
     setCurrentStep((prev) => prev + 1);
   };
 
@@ -135,10 +133,10 @@ function PlacementDashboard() {
   const handleReset = () => {
     setCurrentStep(0);
     setAnswers({
-      preparationFrequency: "",
-      preparationChallenge: "",
-      internshipStatus:     "",
-      interviewConfidence:  "",
+      preparationFrequency: [],
+      preparationChallenge: [],
+      internshipStatus:     [],
+      interviewConfidence:  [],
     });
   };
 
@@ -182,7 +180,7 @@ function PlacementDashboard() {
           questionNumber={currentStep + 1}
           question={QUESTIONS[currentStep].question}
           options={QUESTIONS[currentStep].options}
-          selectedId={answers[QUESTIONS[currentStep].fieldKey]}
+          selectedIds={answers[QUESTIONS[currentStep].fieldKey]}
           onAnswer={handleAnswer}
         />
       )}

@@ -14,12 +14,15 @@
  *  - onReset   : callback to restart the check-in
  */
 function CompletionCard({ answers, questions, onReset }) {
-  // Map each answer id back to its human-readable label + emoji
+  // Map each answer array back to human-readable labels + emojis
   const summaryRows = questions.map((q) => {
-    const chosen = q.options.find((o) => o.id === answers[q.fieldKey]);
+    const selectedIds = answers[q.fieldKey] || [];
+    const chosen = q.options.filter((o) => selectedIds.includes(o.id));
     return {
       shortLabel: q.shortLabel,
-      answer: chosen ? `${chosen.emoji} ${chosen.label}` : "—",
+      answer: chosen.length > 0
+        ? chosen.map(o => `${o.emoji} ${o.label}`).join(", ")
+        : "—",
     };
   });
 

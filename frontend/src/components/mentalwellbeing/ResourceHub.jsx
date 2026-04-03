@@ -599,17 +599,6 @@ const ResourceHub = () => {
             </p>
           </div>
         </div>
-        {/* Quick Help */}
-        <button
-          className="rh-quick"
-          onClick={() => handleCat("stress")}
-          style={{
-            background: "#ef4444", border: "none", color: "#fff",
-            borderRadius: 50, padding: "8px 16px",
-            fontSize: "0.78rem", fontWeight: 700, cursor: "pointer",
-            boxShadow: "0 3px 12px rgba(239,68,68,0.3)", transition: "all 0.2s",
-          }}
-        >⚡ Calm Me Down</button>
       </div>
 
       {/* ── Daily Quote Strip ── */}

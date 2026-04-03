@@ -41,7 +41,8 @@ const login = async (req, res) => {
         return res.status(200).json({ student: { id: 'dummy-student-id', name: 'Student', email: 'student' }});
     }
     if (email === 'teacher' && password === 'teacher') {
-        return res.status(200).json({ teacher: true });
+        localStorage.setItem('teacherId', 'teacher');
+        return res.status(200).json({ teacher: true, teacherId: 'teacher' });
     }
 
     const student = await Student.findOne({ email });

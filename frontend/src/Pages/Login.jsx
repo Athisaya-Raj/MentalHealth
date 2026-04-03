@@ -17,6 +17,7 @@ function Login() {
     // Temporary easy login for teacher
     if (username === "teacher" && password === "teacher") {
       localStorage.setItem("userRole", "teacher");
+      localStorage.setItem("teacherId", "teacher");
       navigate("/teacher");
       setLoading(false);
       return;
@@ -37,6 +38,7 @@ function Login() {
 
       if (data.teacher) {
         localStorage.setItem("userRole", "teacher");
+        localStorage.setItem("teacherId", data.teacherId || "teacher");
         navigate("/teacher");
       } else {
         localStorage.setItem("userRole", "student");

@@ -32,7 +32,6 @@ const RiskDetection = ({ data = [] }) => {
               <th>Stress (1-10)</th>
               <th>Workload (1-10)</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -59,18 +58,11 @@ const RiskDetection = ({ data = [] }) => {
                       {s.riskLevel.charAt(0).toUpperCase() + s.riskLevel.slice(1)} Risk
                     </span>
                   </td>
-                  <td>
-                    <div className="table-actions">
-                      <button className="icon-btn" title="Message Student">✉️</button>
-                      <button className="icon-btn" title="Schedule Check-in">📅</button>
-                      <button className="icon-btn" title="Mark for Counseling">🆘</button>
-                    </div>
-                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>No students found in this category.</td>
+                <td colSpan="5" style={{ textAlign: 'center', padding: '2rem' }}>No students found in this category.</td>
               </tr>
             )}
           </tbody>
