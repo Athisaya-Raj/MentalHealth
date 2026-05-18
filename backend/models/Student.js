@@ -8,7 +8,7 @@ const studentSchema = new mongoose.Schema({
   registerNumber: { type: String, required: true, unique: true },
   email:          { type: String, required: true, unique: true },
   password:       { type: String, required: true },
-  mentor_id:      { type: String, default: 'teacher' },   // links student to their mentor
+  mentor_id:      { type: String, default: null },   // links student to their mentor
   createdAt:      { type: Date, default: Date.now },
 });
 

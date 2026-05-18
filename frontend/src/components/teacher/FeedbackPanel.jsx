@@ -63,77 +63,83 @@ const FeedbackPanel = ({ data = [] }) => {
       </div>
 
       <div className="feedback-list">
-        {displayedMessages.map(msg => {
-          const isResolved = resolved.has(msg.id);
-          const isFlagged  = flagged.has(msg.id);
+        {displayedMessages.length === 0 ? (
+          <p style={{ textAlign: 'center', color: '#64748b', padding: '2rem' }}>
+            No student feedback submitted yet.
+          </p>
+        ) : (
+          displayedMessages.map(msg => {
+            const isResolved = resolved.has(msg.id);
+            const isFlagged  = flagged.has(msg.id);
 
-          return (
-            <div
-              key={msg.id}
-              className={`feedback-item ${msg.riskLevel}`}
-              style={{
-                opacity:    isResolved ? 0.55 : 1,
-                transition: 'opacity 0.3s',
-                position:   'relative',
-              }}
-            >
-              {/* Flag button — top-right corner */}
-              <button
-                onClick={() => handleFlag(msg.id)}
-                title={isFlagged ? 'Unflag' : 'Flag this issue'}
+            return (
+              <div
+                key={msg.id}
+                className={`feedback-item ${msg.riskLevel}`}
                 style={{
-                  position:   'absolute', top: 12, right: 12,
-                  background: 'none', border: 'none',
-                  fontSize:   '1.1rem', cursor: 'pointer',
-                  color:      isFlagged ? '#ef4444' : '#cbd5e1',
-                  transition: 'color 0.2s, transform 0.15s',
-                  transform:  isFlagged ? 'scale(1.15)' : 'scale(1)',
-                  lineHeight: 1,
+                  opacity:    isResolved ? 0.55 : 1,
+                  transition: 'opacity 0.3s',
+                  position:   'relative',
                 }}
-                aria-pressed={isFlagged}
               >
-                🚩
-              </button>
+                {/* Flag button — top-right corner */}
+                <button
+                  onClick={() => handleFlag(msg.id)}
+                  title={isFlagged ? 'Unflag' : 'Flag this issue'}
+                  style={{
+                    position:   'absolute', top: 12, right: 12,
+                    background: 'none', border: 'none',
+                    fontSize:   '1.1rem', cursor: 'pointer',
+                    color:      isFlagged ? '#ef4444' : '#cbd5e1',
+                    transition: 'color 0.2s, transform 0.15s',
+                    transform:  isFlagged ? 'scale(1.15)' : 'scale(1)',
+                    lineHeight: 1,
+                  }}
+                  aria-pressed={isFlagged}
+                >
+                  🚩
+                </button>
 
-              <div className="feedback-header" style={{ paddingRight: 32 }}>
-                <strong>Anonymous Feedback ({msg.year} Year - {msg.subject})</strong>
-                <span className="timestamp">{msg.timestamp}</span>
+                <div className="feedback-header" style={{ paddingRight: 32 }}>
+                  <strong>Anonymous Feedback ({msg.year} Year - {msg.subject})</strong>
+                  <span className="timestamp">{msg.timestamp}</span>
+                </div>
+
+                <p className="feedback-content">"{msg.suggestion}"</p>
+
+                <div className="feedback-meta">
+                  <span>Stress Index: <strong>{msg.exhaustion}/10</strong></span>
+                  <span>Workload Rating: <strong>{msg.workload}/10</strong></span>
+                  {isFlagged && (
+                    <span style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.82rem' }}>
+                      🚩 Flagged
+                    </span>
+                  )}
+                </div>
+
+                <div className="feedback-actions">
+                  {isResolved ? (
+                    <span style={{
+                      display:    'inline-flex', alignItems: 'center', gap: 6,
+                      background: '#f0fdf4', color: '#16a34a',
+                      border:     '1px solid #bbf7d0', borderRadius: 6,
+                      padding:    '6px 14px', fontSize: '0.82rem', fontWeight: 700,
+                    }}>
+                      ✓ Resolved
+                    </span>
+                  ) : (
+                    <button
+                      className="secondary-btn sm"
+                      onClick={() => handleResolve(msg.id)}
+                    >
+                      Mark Resolved
+                    </button>
+                  )}
+                </div>
               </div>
-
-              <p className="feedback-content">"{msg.suggestion}"</p>
-
-              <div className="feedback-meta">
-                <span>Stress Index: <strong>{msg.exhaustion}/10</strong></span>
-                <span>Workload Rating: <strong>{msg.workload}/10</strong></span>
-                {isFlagged && (
-                  <span style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.82rem' }}>
-                    🚩 Flagged
-                  </span>
-                )}
-              </div>
-
-              <div className="feedback-actions">
-                {isResolved ? (
-                  <span style={{
-                    display:    'inline-flex', alignItems: 'center', gap: 6,
-                    background: '#f0fdf4', color: '#16a34a',
-                    border:     '1px solid #bbf7d0', borderRadius: 6,
-                    padding:    '6px 14px', fontSize: '0.82rem', fontWeight: 700,
-                  }}>
-                    ✓ Resolved
-                  </span>
-                ) : (
-                  <button
-                    className="secondary-btn sm"
-                    onClick={() => handleResolve(msg.id)}
-                  >
-                    Mark Resolved
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

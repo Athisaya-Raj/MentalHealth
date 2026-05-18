@@ -11,23 +11,39 @@ import TrendAnalytics from "../components/teacher/TrendAnalytics";
 import MentoringNotes from "../components/teacher/MentoringNotes";
 
 import "../components/teacher/teacher.css";
-import rawData from "../data/teacherData.json";
-
 const TeacherDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
-  const [allData]  = useState(rawData);
+  const [allData, setAllData] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
   const [alertCount, setAlertCount] = useState(0);
+
+  // Fetch dashboard data
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/teacher/dashboard-data");
+        const json = await res.json();
+        console.log("Dashboard Data:", json);
+        if (Array.isArray(json)) setAllData(json);
+      } catch (err) {
+        console.error("Failed to fetch dashboard data:", err);
+      } finally {
+        setLoadingData(false);
+      }
+    };
+    fetchDashboardData();
+  }, []);
 
   // Fetch unread alert count for sidebar badge
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res  = await fetch("http://localhost:5000/api/teacher/alerts?mentor_id=teacher");
+        const res = await fetch("http://localhost:5000/api/teacher/alerts?mentor_id=teacher");
         const json = await res.json();
         if (Array.isArray(json)) {
           setAlertCount(json.filter(a => a.priority === "high").length);
         }
-      } catch (_) {}
+      } catch (_) { }
     };
     fetchCount();
     const iv = setInterval(fetchCount, 30000);
@@ -36,16 +52,16 @@ const TeacherDashboard = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "overview":         return <TeacherOverview   data={allData} onNavigate={setActiveTab} />;
-      case "class-analytics":  return <ClassAnalytics    data={allData} />;
-      case "risk-detection":   return <RiskDetection     data={allData} />;
-      case "mentee-panel":     return <MenteePanel       data={allData} />;
-      case "feedback-messages":return <FeedbackPanel     data={allData} />;
-      case "academic-pressure":return <PressureMonitor   data={allData} />;
-      case "alerts":           return <AlertsPanel       data={allData} />;
-      case "trends":           return <TrendAnalytics    data={allData} />;
-      case "mentoring-notes":  return <MentoringNotes    data={allData} />;
-      default:                 return <TeacherOverview   data={allData} onNavigate={setActiveTab} />;
+      case "overview": return <TeacherOverview data={allData} onNavigate={setActiveTab} />;
+      case "class-analytics": return <ClassAnalytics data={allData} />;
+      case "risk-detection": return <RiskDetection data={allData} />;
+      case "mentee-panel": return <MenteePanel data={allData} />;
+      case "feedback-messages": return <FeedbackPanel data={allData} />;
+      case "academic-pressure": return <PressureMonitor data={allData} />;
+      case "alerts": return <AlertsPanel data={allData} />;
+      case "trends": return <TrendAnalytics data={allData} />;
+      case "mentoring-notes": return <MentoringNotes data={allData} />;
+      default: return <TeacherOverview data={allData} onNavigate={setActiveTab} />;
     }
   };
 
@@ -85,15 +101,15 @@ const TeacherDashboard = () => {
 
 const renderHeaderTitle = (tab) => {
   const titles = {
-    overview:           "Overview",
-    "class-analytics":  "Class Analytics",
-    "risk-detection":   "Risk Detection",
-    "mentee-panel":     "Mentee Monitoring Panel",
-    "feedback-messages":"Feedback & Messages",
-    "academic-pressure":"Academic Pressure Monitor",
-    alerts:             "Recent Alerts",
-    trends:             "Well-Being Trends",
-    "mentoring-notes":  "Mentoring Notes",
+    overview: "Overview",
+    "class-analytics": "Class Analytics",
+    "risk-detection": "Risk Detection",
+    "mentee-panel": "Mentee Monitoring Panel",
+    "feedback-messages": "Feedback & Messages",
+    "academic-pressure": "Academic Pressure Monitor",
+    alerts: "Recent Alerts",
+    trends: "Well-Being Trends",
+    "mentoring-notes": "Mentoring Notes",
   };
   return titles[tab] || "Teacher Dashboard";
 };

@@ -51,12 +51,7 @@ const TeacherOverview = ({ data = [], onNavigate }) => {
     };
   }, [data, liveAlerts]);
 
-  // Fixed 3 alerts always shown in overview (no timestamp)
-  const FIXED_ALERTS = [
-    { _id: 'f1', studentName: 'Student #06', message: 'Too much stress due to lab', priority: 'high' },
-    { _id: 'f2', studentName: 'Student #11', message: 'bjfcgeowifhceiow',           priority: 'medium' },
-    { _id: 'f3', studentName: 'Student #08', message: 'Too stressed',               priority: 'high' },
-  ];
+  const displayAlerts = liveAlerts.slice(0, 3);
 
   return (
     <div className="teacher-panel-container">
@@ -91,16 +86,22 @@ const TeacherOverview = ({ data = [], onNavigate }) => {
         <div className="overview-box recent-alerts">
           <h3>Recent Alerts</h3>
           <ul className="alert-list">
-            {FIXED_ALERTS.map((alert) => (
-              <li key={alert._id} className={`alert-item ${alert.priority === 'high' ? 'high-priority' : 'moderate-priority'}`}>
-                <span className="dot" style={{ background: PRIORITY_COLOR[alert.priority] || '#94a3b8' }} />
-                <span>
-                  <strong>{alert.studentName}</strong>
-                  {' — '}
-                  <span style={{ color: '#475569', fontSize: '0.88rem' }}>{alert.message}</span>
-                </span>
+            {displayAlerts.length > 0 ? (
+              displayAlerts.map((alert) => (
+                <li key={alert._id} className={`alert-item ${alert.priority === 'high' ? 'high-priority' : 'moderate-priority'}`}>
+                  <span className="dot" style={{ background: PRIORITY_COLOR[alert.priority] || '#94a3b8' }} />
+                  <span>
+                    <strong>{alert.studentName}</strong>
+                    {' — '}
+                    <span style={{ color: '#475569', fontSize: '0.88rem' }}>{alert.message}</span>
+                  </span>
+                </li>
+              ))
+            ) : (
+              <li style={{ padding: '1rem', color: '#64748b', fontSize: '0.9rem', textAlign: 'center' }}>
+                No urgent alerts at this time.
               </li>
-            ))}
+            )}
           </ul>
           <button className="text-btn" onClick={() => onNavigate('alerts')}>
             View All Alerts →

@@ -2,28 +2,45 @@ import React, { useState } from 'react';
 import './teacher.css';
 
 const MentoringNotes = ({ data = [] }) => {
-  const [notes, setNotes] = useState([
-    { id: 1, studentId: 'Student #05', date: 'Oct 12, 2023', content: 'Met to discuss lab pressure. Decided to grant a 2-day extension on the upcoming submission.' },
-    { id: 2, studentId: 'Student #12', date: 'Oct 10, 2023', content: 'Checking on mid-semester stress. Seems to be managing better after dropping an elective.' }
-  ]);
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [selectedStudent, setSelectedStudent] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleAddNote = (e) => {
+  // Fetch real notes on mount
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const teacherId = localStorage.getItem('teacherId') || 'teacher';
+        const res = await fetch(`http://localhost:5000/api/notes?mentor_id=${teacherId}`);
+        const json = await res.json();
+        if (Array.isArray(json)) setNotes(json);
+      } catch (err) {
+        console.error('Failed to fetch notes:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNotes();
+  }, []);
+
+  const handleAddNote = async (e) => {
     e.preventDefault();
     if (!newNote || !selectedStudent) return;
     
-    setNotes([
-      {
-        id: Date.now(),
-        studentId: selectedStudent,
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        content: newNote
-      },
-      ...notes
-    ]);
-    setNewNote('');
-    setSelectedStudent('');
+    try {
+      const res = await fetch('http://localhost:5000/api/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id: selectedStudent, note: newNote })
+      });
+      const savedNote = await res.json();
+      setNotes([savedNote, ...notes]);
+      setNewNote('');
+      setSelectedStudent('');
+    } catch (err) {
+      console.error('Failed to save note:', err);
+    }
   };
 
   return (
@@ -67,15 +84,23 @@ const MentoringNotes = ({ data = [] }) => {
         <div className="notes-history">
           <h4>History</h4>
           <div className="notes-list">
-            {notes.map(note => (
-              <div key={note.id} className="note-card">
-                <div className="note-header">
-                  <strong>{note.studentId}</strong>
-                  <span className="note-date">{note.date}</span>
+            {loading ? (
+              <p style={{ color: '#64748b' }}>Loading notes...</p>
+            ) : notes.length === 0 ? (
+              <p style={{ color: '#64748b' }}>No mentee notes available.</p>
+            ) : (
+              notes.map(note => (
+                <div key={note._id || note.id} className="note-card">
+                  <div className="note-header">
+                    <strong>{note.student_id || note.studentId}</strong>
+                    <span className="note-date">
+                      {note.timestamp ? new Date(note.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : note.date}
+                    </span>
+                  </div>
+                  <p>{note.note || note.content}</p>
                 </div>
-                <p>{note.content}</p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -186,10 +186,15 @@ const YearCards = ({ yearStats, onSelectYear }) => (
 // ── Main Component ──────────────────────────────────────────
 
 const DepartmentOverview = ({ allData = [], onSelectYear }) => {
+  const matchYear = (dbYear, targetYear) => {
+    if (!dbYear) return false;
+    return String(dbYear).toLowerCase().includes(String(targetYear).toLowerCase());
+  };
+
   // Group data by year
   const byYear = useMemo(() => {
     const groups = {};
-    YEARS.forEach((yr) => { groups[yr] = allData.filter((r) => r.year === yr); });
+    YEARS.forEach((yr) => { groups[yr] = allData.filter((r) => matchYear(r.year, yr)); });
     return groups;
   }, [allData]);
 

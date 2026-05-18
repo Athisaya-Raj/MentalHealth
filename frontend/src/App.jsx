@@ -8,6 +8,7 @@ import Timetable from "./Pages/Timetable";
 import TeacherDashboard from "./Pages/TeacherDashboard";
 import Placements from "./Pages/Placements";
 import MentalWellbeing from "./Pages/MentalWellbeing";
+import AdminDashboard from "./Pages/AdminDashboard";
 import ResourceHub from "./components/mentalwellbeing/ResourceHub";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/student/timetable" element={<Timetable />} />
         <Route path="/placements" element={<Placements />} />
         <Route path="/mentalwellbeing" element={<MentalWellbeing />} />
+        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/mentalwellbeing/resources" element={<ResourceHub />} />
       </Routes>
     </Router>

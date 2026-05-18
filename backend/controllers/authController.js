@@ -1,4 +1,5 @@
 const Student = require('../models/Student');
+const Teacher = require('../models/Teacher');
 const bcrypt = require('bcrypt');
 
 const signup = async (req, res) => {
@@ -36,12 +37,25 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Special hardcoded logins to maintain compatibility with un-updated frontend components
+    // Admin Login
+    if (email === 'admin' && password === 'admin') {
+      return res.status(200).json({ admin: true });
+    }
+
+    // Teacher Login (Database lookup)
+    const teacher = await Teacher.findOne({ username: email }) || await Teacher.findOne({ email });
+    if (teacher) {
+      const isMatch = await bcrypt.compare(password, teacher.password);
+      if (isMatch) {
+        return res.status(200).json({ teacher: true, teacherId: teacher._id, name: teacher.name });
+      }
+    }
+
+    // Temporary hardcoded logins for fallback (can be removed in production)
     if (email === 'student' && password === 'student') {
         return res.status(200).json({ student: { id: 'dummy-student-id', name: 'Student', email: 'student' }});
     }
     if (email === 'teacher' && password === 'teacher') {
-        localStorage.setItem('teacherId', 'teacher');
         return res.status(200).json({ teacher: true, teacherId: 'teacher' });
     }
 

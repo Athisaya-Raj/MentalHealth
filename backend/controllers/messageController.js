@@ -74,19 +74,10 @@ const getAlerts = async (req, res) => {
       })
     );
 
-    // Fallback: if DB is empty, return one dummy alert so UI is never blank
+    // Fallback: removed dummy alert to only return real DB data
     if (enriched.length === 0) {
-      console.log('[getAlerts] No messages found — returning fallback dummy alert');
-      return res.json([{
-        _id:         'fallback-1',
-        sender_id:   'dummy-student-id',
-        receiver_id: mentor_id,
-        studentName: 'Rohan (Demo)',
-        message:     'Feeling stressed about academics and upcoming project deadlines.',
-        priority:    'high',
-        timestamp:   new Date().toISOString(),
-        source:      'fallback',
-      }]);
+      console.log('[getAlerts] No messages found — returning empty array');
+      return res.json([]);
     }
 
     res.json(enriched);

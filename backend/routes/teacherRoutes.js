@@ -3,11 +3,20 @@ const {
   getPlacementStats,
   getCourseStats,
   getWorkloadStats,
-  getMentalStats
+  getMentalStats,
+  createNote,
+  getNotes,
+  getDashboardData
 } = require('../controllers/teacherController');
 const { getAlerts, getMenteeList } = require('../controllers/messageController');
 
 const router = express.Router();
+
+router.get('/dashboard-data', getDashboardData);
+
+router.post('/notes', createNote);
+router.get('/notes', getNotes);
+
 
 router.get('/stats/placement', getPlacementStats);
 router.get('/stats/courses', getCourseStats);
